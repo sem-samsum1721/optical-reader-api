@@ -13,10 +13,12 @@ from flask_cors import CORS
 import secrets
 import re
 import traceback
+import os
 
 # --- Tesseract Yapılandırması ---
 try:
-    pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe" # KENDİ YOLUNUZU GİRİN
+   
+    pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_CMD', '/app/.apt/usr/bin/tesseract')# KENDİ YOLUNUZU GİRİN
     version = pytesseract.get_tesseract_version()
     print(f"Tesseract versiyonu bulundu: {version}")
 except Exception as e:
@@ -31,8 +33,8 @@ app.secret_key = secrets.token_hex(16)
 CORS(app)
 
 # --- Dosya Yükleme Ayarları ---
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+UPLOAD_FOLDER = os.path.join('/tmp', 'uploads')
+DEBUG_FOLDER = os.path.join('/tmp', 'debug_images')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # --- Global Veri Saklama ---
@@ -572,5 +574,5 @@ def index():
     return 'Flask Optik Okuyucu API çalışıyor!'
 
 if __name__ == '__main__':
-    print("\nFlask uygulaması başlatılıyor...")
-    app.run(host='0.0.0.0', port=5000, debug=DEBUG_MODE)
+    port = int(os.getenv('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=DEBUG_MODE)
