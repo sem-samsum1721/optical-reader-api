@@ -1,3 +1,1 @@
-tesseract-ocr
-tesseract-ocr-eng
-tesseract-ocr-tur
+-e "tesseract-ocr\ntesseract-ocr-eng\ntesseract-ocr-tur" 
