@@ -1,7 +1,9 @@
-Flask>=2.3.0
-Pillow>=10.0.0
-pytesseract>=0.3.10
+Flask
 opencv-python-headless
-scikit-image
 numpy
+pytesseract
+scikit-image
+scikit-learn
+Flask-CORS
 gunicorn
+Pillow
