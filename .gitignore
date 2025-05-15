@@ -1,0 +1,1 @@
+-e "venv/\n__pycache__/\n*.pyc\n.env" 
